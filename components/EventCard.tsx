@@ -21,16 +21,19 @@ export function EventCard({ event, onClick }: EventCardProps) {
 
   return (
     <button
-      onClick={onClick}
-      className={`absolute left-1 right-1 ${colorConfig.bg} ${colorConfig.border} border-l-4 rounded-r-md px-2 py-1 text-left overflow-hidden hover:shadow-md transition-shadow cursor-pointer`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      className={`absolute left-1 right-1 ${colorConfig.bg} ${colorConfig.text} ${colorConfig.hover} backdrop-blur-sm rounded-lg px-2.5 py-1.5 text-left overflow-hidden shadow-lg ${colorConfig.shadow} hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer border border-white/20`}
       style={{
         top: `${startOffset * 100}%`,
         height: `${heightPercent}%`,
-        minHeight: '24px',
+        minHeight: '28px',
       }}
     >
-      <p className="text-xs font-medium text-slate-800 truncate">{event.title}</p>
-      <p className="text-xs text-slate-500 truncate">
+      <p className="text-xs font-semibold truncate drop-shadow-sm">{event.title}</p>
+      <p className={`text-xs truncate ${colorConfig.text === 'text-white' ? 'text-white/80' : 'text-amber-700'}`}>
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </p>
     </button>

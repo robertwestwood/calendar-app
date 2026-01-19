@@ -72,22 +72,22 @@ export function EventModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop - stronger blur */}
       <div
-        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/30 backdrop-blur-md"
         onClick={onClose}
       />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-        {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h2 className="text-lg font-semibold text-slate-800">
+      {/* Modal - Glass Effect */}
+      <div className="relative bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-white/50 animate-in zoom-in-95 duration-200">
+        {/* Header with glass gradient */}
+        <div className="bg-gradient-to-r from-violet-500/90 via-purple-500/90 to-fuchsia-500/90 backdrop-blur-sm px-6 py-5 border-b border-white/20">
+          <h2 className="text-xl font-bold text-white drop-shadow-sm">
             {editingEvent ? 'Edit Event' : 'New Event'}
           </h2>
           {date && (
-            <p className="text-sm text-slate-500 mt-0.5">
+            <p className="text-sm text-white/80 mt-1">
               {formatDisplayDate(parseDate(date))}
             </p>
           )}
@@ -99,7 +99,7 @@ export function EventModal({
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-slate-700 mb-1.5"
+              className="block text-sm font-semibold text-slate-700 mb-2"
             >
               Event title
             </label>
@@ -109,7 +109,7 @@ export function EventModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Add title"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-800 placeholder:text-slate-400"
+              className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border-2 border-white/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-violet-400 focus:bg-white/80 transition-all text-slate-800 placeholder:text-slate-400 font-medium"
               autoFocus
             />
           </div>
@@ -118,7 +118,7 @@ export function EventModal({
           <div>
             <label
               htmlFor="date"
-              className="block text-sm font-medium text-slate-700 mb-1.5"
+              className="block text-sm font-semibold text-slate-700 mb-2"
             >
               Date
             </label>
@@ -127,7 +127,7 @@ export function EventModal({
               id="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-800"
+              className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border-2 border-white/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-violet-400 focus:bg-white/80 transition-all text-slate-800 font-medium"
             />
           </div>
 
@@ -136,7 +136,7 @@ export function EventModal({
             <div>
               <label
                 htmlFor="startTime"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
+                className="block text-sm font-semibold text-slate-700 mb-2"
               >
                 Start time
               </label>
@@ -144,7 +144,7 @@ export function EventModal({
                 id="startTime"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-800 bg-white"
+                className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border-2 border-white/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-violet-400 focus:bg-white/80 transition-all text-slate-800 font-medium"
               >
                 {timeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -156,7 +156,7 @@ export function EventModal({
             <div>
               <label
                 htmlFor="endTime"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
+                className="block text-sm font-semibold text-slate-700 mb-2"
               >
                 End time
               </label>
@@ -164,7 +164,7 @@ export function EventModal({
                 id="endTime"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-800 bg-white"
+                className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border-2 border-white/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-violet-400 focus:bg-white/80 transition-all text-slate-800 font-medium"
               >
                 {timeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -177,19 +177,19 @@ export function EventModal({
 
           {/* Color */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-700 mb-3">
               Color
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {EVENT_COLORS.map((c) => (
                 <button
                   key={c.value}
                   type="button"
                   onClick={() => setColor(c.value)}
-                  className={`w-8 h-8 rounded-full ${c.bg} ${c.border} border-2 transition-transform ${
+                  className={`w-10 h-10 rounded-xl ${c.bg} backdrop-blur-sm shadow-lg ${c.shadow} border border-white/30 transition-all ${
                     color === c.value
-                      ? 'ring-2 ring-offset-2 ring-slate-400 scale-110'
-                      : 'hover:scale-105'
+                      ? 'ring-4 ring-offset-2 ring-slate-300 scale-110'
+                      : 'hover:scale-105 hover:shadow-xl'
                   }`}
                   title={c.label}
                 />
@@ -198,12 +198,12 @@ export function EventModal({
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex items-center justify-between pt-4 border-t border-slate-200/50">
             {editingEvent ? (
               <button
                 type="button"
                 onClick={handleDelete}
-                className="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                className="px-4 py-2.5 text-sm font-semibold text-red-600 hover:text-white hover:bg-red-500/80 hover:backdrop-blur-sm rounded-xl transition-all"
               >
                 Delete
               </button>
@@ -214,14 +214,14 @@ export function EventModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                className="px-5 py-2.5 text-sm font-semibold text-slate-600 hover:bg-white/60 backdrop-blur-sm rounded-xl transition-all border border-transparent hover:border-white/50"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={!title.trim() || !date}
-                className="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-violet-500/90 to-purple-500/90 backdrop-blur-sm rounded-xl hover:from-violet-500 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-violet-300/50 hover:shadow-xl border border-white/20 transition-all"
               >
                 {editingEvent ? 'Save' : 'Create'}
               </button>

@@ -6,6 +6,7 @@ import { EventCard } from './EventCard';
 interface TimeSlotProps {
   date: string;
   hour: number;
+  hourIndex: number;
   events: CalendarEvent[];
   onSlotClick: (date: string, hour: number) => void;
   onEventClick: (event: CalendarEvent) => void;
@@ -15,6 +16,7 @@ interface TimeSlotProps {
 export function TimeSlot({
   date,
   hour,
+  hourIndex,
   events,
   onSlotClick,
   onEventClick,
@@ -26,12 +28,20 @@ export function TimeSlot({
     return eventHour === hour;
   });
 
+  const isEvenRow = hourIndex % 2 === 0;
+
   return (
     <div
       onClick={() => onSlotClick(date, hour)}
-      className={`relative h-16 border-b border-r border-slate-200 cursor-pointer transition-colors hover:bg-slate-50 ${
-        isToday ? 'bg-blue-50/30' : ''
-      }`}
+      className={`relative h-16 border-b border-r cursor-pointer transition-all
+        ${isToday
+          ? 'bg-violet-50/40 border-violet-200/50 hover:bg-violet-100/50'
+          : isEvenRow
+            ? 'bg-white/30 border-white/30 hover:bg-white/50'
+            : 'bg-white/10 border-white/30 hover:bg-white/40'
+        }
+        hover:backdrop-blur-sm
+      `}
     >
       {slotEvents.map((event) => (
         <EventCard

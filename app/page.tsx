@@ -43,18 +43,18 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen flex flex-col bg-white">
-      {/* App Header */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-violet-600 rounded-lg flex items-center justify-center">
+    <main className="h-screen flex flex-col p-4 gap-4">
+      {/* App Header - Glass Effect */}
+      <header className="flex items-center justify-between px-6 py-4 bg-white/20 backdrop-blur-xl rounded-2xl border border-white/30 shadow-lg">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-white/30 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/40">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={2}
+              strokeWidth={2.5}
               stroke="white"
-              className="w-5 h-5"
+              className="w-6 h-6 drop-shadow-md"
             >
               <path
                 strokeLinecap="round"
@@ -63,7 +63,7 @@ export default function Home() {
               />
             </svg>
           </div>
-          <h1 className="text-xl font-semibold text-slate-800">Calendar</h1>
+          <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow-md">Calendar</h1>
         </div>
         <button
           onClick={() => {
@@ -72,13 +72,13 @@ export default function Home() {
             setSelectedHour(9);
             setIsModalOpen(true);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 shadow-sm hover:shadow transition-all"
+          className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-violet-600 text-sm font-semibold rounded-xl hover:bg-white border border-white/50 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={2}
+            strokeWidth={2.5}
             stroke="currentColor"
             className="w-4 h-4"
           >
