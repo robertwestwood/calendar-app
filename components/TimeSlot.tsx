@@ -35,10 +35,10 @@ export function TimeSlot({
       onClick={() => onSlotClick(date, hour)}
       className={`relative h-16 border-b border-r cursor-pointer transition-all
         ${isToday
-          ? 'bg-violet-50/40 border-violet-200/50 hover:bg-violet-100/50'
+          ? 'bg-violet-50/40 dark:bg-violet-900/20 border-violet-200/50 dark:border-violet-500/30 hover:bg-violet-100/50 dark:hover:bg-violet-900/30'
           : isEvenRow
-            ? 'bg-white/30 border-white/30 hover:bg-white/50'
-            : 'bg-white/10 border-white/30 hover:bg-white/40'
+            ? 'bg-white/30 dark:bg-slate-700/30 border-white/30 dark:border-white/10 hover:bg-white/50 dark:hover:bg-slate-600/40'
+            : 'bg-white/10 dark:bg-slate-800/30 border-white/30 dark:border-white/10 hover:bg-white/40 dark:hover:bg-slate-700/40'
         }
         hover:backdrop-blur-sm
       `}

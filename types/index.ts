@@ -5,6 +5,7 @@ export interface CalendarEvent {
   startTime: string; // HH:mm format
   endTime: string; // HH:mm format
   color: EventColor;
+  comment?: string;
 }
 
 export type EventColor = 'blue' | 'violet' | 'emerald' | 'amber' | 'rose';

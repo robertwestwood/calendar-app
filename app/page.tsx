@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { EventModal } from '@/components/EventModal';
 import { useEvents } from '@/hooks/useEvents';
+import { useTheme } from '@/hooks/useTheme';
 import { CalendarEvent } from '@/types';
 
 export default function Home() {
   const { events, isLoaded, addEvent, updateEvent, deleteEvent } = useEvents();
+  const { isDark, toggleTheme, isLoaded: themeLoaded } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<CalendarEvent | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
@@ -34,7 +36,7 @@ export default function Home() {
     setSelectedHour(undefined);
   };
 
-  if (!isLoaded) {
+  if (!isLoaded || !themeLoaded) {
     return (
       <div className="h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
@@ -65,27 +67,69 @@ export default function Home() {
           </div>
           <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow-md">Calendar</h1>
         </div>
-        <button
-          onClick={() => {
-            setEditingEvent(null);
-            setSelectedDate(new Date().toISOString().split('T')[0]);
-            setSelectedHour(9);
-            setIsModalOpen(true);
-          }}
-          className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-violet-600 text-sm font-semibold rounded-xl hover:bg-white border border-white/50 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className="w-4 h-4"
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2.5 bg-white/30 backdrop-blur-sm rounded-xl hover:bg-white/50 border border-white/40 shadow-lg transition-all"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
-          New Event
-        </button>
+            {isDark ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="white"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="white"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                />
+              </svg>
+            )}
+          </button>
+
+          {/* New Event Button */}
+          <button
+            onClick={() => {
+              setEditingEvent(null);
+              setSelectedDate(new Date().toISOString().split('T')[0]);
+              setSelectedHour(9);
+              setIsModalOpen(true);
+            }}
+            className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-violet-600 text-sm font-semibold rounded-xl hover:bg-white border border-white/50 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-4 h-4"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            New Event
+          </button>
+        </div>
       </header>
 
       {/* Calendar */}

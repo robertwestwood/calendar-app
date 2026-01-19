@@ -30,6 +30,7 @@ export function EventModal({
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('10:00');
   const [color, setColor] = useState<EventColor>('blue');
+  const [comment, setComment] = useState('');
 
   const timeOptions = getTimeOptions();
 
@@ -40,6 +41,7 @@ export function EventModal({
       setStartTime(editingEvent.startTime);
       setEndTime(editingEvent.endTime);
       setColor(editingEvent.color);
+      setComment(editingEvent.comment || '');
     } else if (initialDate) {
       setTitle('');
       setDate(initialDate);
@@ -47,6 +49,7 @@ export function EventModal({
       setStartTime(`${String(hour).padStart(2, '0')}:00`);
       setEndTime(`${String(hour + 1).padStart(2, '0')}:00`);
       setColor('blue');
+      setComment('');
     }
   }, [editingEvent, initialDate, initialHour, isOpen]);
 
@@ -54,10 +57,11 @@ export function EventModal({
     e.preventDefault();
     if (!title.trim() || !date) return;
 
+    const trimmedComment = comment.trim() || undefined;
     if (editingEvent) {
-      onUpdate(editingEvent.id, { title, date, startTime, endTime, color });
+      onUpdate(editingEvent.id, { title, date, startTime, endTime, color, comment: trimmedComment });
     } else {
-      onSave({ title, date, startTime, endTime, color });
+      onSave({ title, date, startTime, endTime, color, comment: trimmedComment });
     }
     onClose();
   };
@@ -80,7 +84,7 @@ export function EventModal({
       />
 
       {/* Modal - Glass Effect */}
-      <div className="relative bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-white/50 animate-in zoom-in-95 duration-200">
+      <div className="relative bg-white/80 dark:bg-slate-800/90 backdrop-blur-2xl rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-white/50 dark:border-white/10 animate-in zoom-in-95 duration-200">
         {/* Header with glass gradient */}
         <div className="bg-gradient-to-r from-violet-500/90 via-purple-500/90 to-fuchsia-500/90 backdrop-blur-sm px-6 py-5 border-b border-white/20">
           <h2 className="text-xl font-bold text-white drop-shadow-sm">
@@ -99,7 +103,7 @@ export function EventModal({
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-semibold text-slate-700 mb-2"
+              className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2"
             >
               Event title
             </label>
@@ -118,7 +122,7 @@ export function EventModal({
           <div>
             <label
               htmlFor="date"
-              className="block text-sm font-semibold text-slate-700 mb-2"
+              className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2"
             >
               Date
             </label>
@@ -136,7 +140,7 @@ export function EventModal({
             <div>
               <label
                 htmlFor="startTime"
-                className="block text-sm font-semibold text-slate-700 mb-2"
+                className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2"
               >
                 Start time
               </label>
@@ -156,7 +160,7 @@ export function EventModal({
             <div>
               <label
                 htmlFor="endTime"
-                className="block text-sm font-semibold text-slate-700 mb-2"
+                className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2"
               >
                 End time
               </label>
@@ -195,6 +199,24 @@ export function EventModal({
                 />
               ))}
             </div>
+          </div>
+
+          {/* Comment */}
+          <div>
+            <label
+              htmlFor="comment"
+              className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2"
+            >
+              Comment
+            </label>
+            <textarea
+              id="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add a note..."
+              rows={2}
+              className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border-2 border-white/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-violet-400 focus:bg-white/80 transition-all text-slate-800 placeholder:text-slate-400 font-medium resize-none"
+            />
           </div>
 
           {/* Actions */}

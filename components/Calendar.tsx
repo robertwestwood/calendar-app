@@ -44,16 +44,16 @@ export function Calendar({ events, onSlotClick, onEventClick }: CalendarProps) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white/70 backdrop-blur-xl rounded-2xl border border-white/30 shadow-xl overflow-hidden">
+    <div className="flex flex-col h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl border border-white/30 dark:border-white/10 shadow-xl overflow-hidden">
       {/* Header - Glass Nav */}
-      <div className="flex items-center justify-between px-6 py-4 bg-white/50 backdrop-blur-md border-b border-white/30">
+      <div className="flex items-center justify-between px-6 py-4 bg-white/50 dark:bg-slate-700/50 backdrop-blur-md border-b border-white/30 dark:border-white/10">
         <div className="flex items-center gap-4">
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
             {formatMonthYear(weekDays[0])}
           </h2>
           <button
             onClick={goToToday}
-            className="px-4 py-2 text-sm font-semibold text-violet-600 bg-white/60 backdrop-blur-sm border border-violet-200/50 rounded-xl hover:bg-white/80 hover:border-violet-300 transition-all shadow-sm"
+            className="px-4 py-2 text-sm font-semibold text-violet-600 dark:text-violet-400 bg-white/60 dark:bg-white/10 backdrop-blur-sm border border-violet-200/50 dark:border-violet-400/30 rounded-xl hover:bg-white/80 dark:hover:bg-white/20 hover:border-violet-300 transition-all shadow-sm"
           >
             Today
           </button>
@@ -61,7 +61,7 @@ export function Calendar({ events, onSlotClick, onEventClick }: CalendarProps) {
         <div className="flex items-center gap-1">
           <button
             onClick={goToPreviousWeek}
-            className="p-2.5 text-slate-600 hover:bg-white/60 hover:text-slate-800 rounded-xl transition-all backdrop-blur-sm"
+            className="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-white rounded-xl transition-all backdrop-blur-sm"
             aria-label="Previous week"
           >
             <svg
@@ -77,7 +77,7 @@ export function Calendar({ events, onSlotClick, onEventClick }: CalendarProps) {
           </button>
           <button
             onClick={goToNextWeek}
-            className="p-2.5 text-slate-600 hover:bg-white/60 hover:text-slate-800 rounded-xl transition-all backdrop-blur-sm"
+            className="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-white rounded-xl transition-all backdrop-blur-sm"
             aria-label="Next week"
           >
             <svg
@@ -98,29 +98,29 @@ export function Calendar({ events, onSlotClick, onEventClick }: CalendarProps) {
       <div className="flex-1 overflow-auto">
         <div className="min-w-[800px]">
           {/* Day Headers - Glass */}
-          <div className="grid grid-cols-8 bg-white/40 backdrop-blur-sm sticky top-0 z-10 border-b border-white/30">
-            <div className="w-20 border-r border-white/30 bg-white/30" />
+          <div className="grid grid-cols-8 bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm sticky top-0 z-10 border-b border-white/30 dark:border-white/10">
+            <div className="w-20 border-r border-white/30 dark:border-white/10 bg-white/30 dark:bg-slate-700/30" />
             {weekDays.map((day) => {
               const dayIsToday = isToday(day);
               return (
                 <div
                   key={formatDate(day)}
-                  className={`py-4 px-2 text-center border-r border-white/30 ${
+                  className={`py-4 px-2 text-center border-r border-white/30 dark:border-white/10 ${
                     dayIsToday
-                      ? 'bg-gradient-to-b from-violet-100/60 to-purple-100/60 backdrop-blur-sm'
-                      : 'bg-white/20'
+                      ? 'bg-gradient-to-b from-violet-100/60 to-purple-100/60 dark:from-violet-900/40 dark:to-purple-900/40 backdrop-blur-sm'
+                      : 'bg-white/20 dark:bg-white/5'
                   }`}
                 >
                   <p className={`text-xs font-bold uppercase tracking-wider ${
-                    dayIsToday ? 'text-violet-600' : 'text-slate-500'
+                    dayIsToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-500 dark:text-slate-400'
                   }`}>
                     {day.toLocaleDateString('en-US', { weekday: 'short' })}
                   </p>
                   <p
                     className={`text-xl font-bold mt-1 ${
                       dayIsToday
-                        ? 'text-white bg-gradient-to-br from-violet-500 to-purple-600 w-10 h-10 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-violet-300/50'
-                        : 'text-slate-700'
+                        ? 'text-white bg-gradient-to-br from-violet-500 to-purple-600 w-10 h-10 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-violet-300/50 dark:shadow-violet-500/30'
+                        : 'text-slate-700 dark:text-slate-200'
                     }`}
                   >
                     {day.getDate()}
@@ -133,12 +133,12 @@ export function Calendar({ events, onSlotClick, onEventClick }: CalendarProps) {
           {/* Time Grid */}
           <div className="grid grid-cols-8">
             {/* Time Column */}
-            <div className="w-20 bg-white/30 backdrop-blur-sm">
+            <div className="w-20 bg-white/30 dark:bg-slate-700/30 backdrop-blur-sm">
               {HOURS.map((hour, index) => (
                 <div
                   key={hour}
-                  className={`h-16 pr-3 text-right text-xs font-semibold border-r border-white/30 pt-0 -mt-2 ${
-                    index % 2 === 0 ? 'text-slate-600' : 'text-slate-400'
+                  className={`h-16 pr-3 text-right text-xs font-semibold border-r border-white/30 dark:border-white/10 pt-0 -mt-2 ${
+                    index % 2 === 0 ? 'text-slate-600 dark:text-slate-300' : 'text-slate-400 dark:text-slate-500'
                   }`}
                 >
                   {formatHour(hour)}

@@ -36,6 +36,21 @@ export function EventCard({ event, onClick }: EventCardProps) {
       <p className={`text-xs truncate ${colorConfig.text === 'text-white' ? 'text-white/80' : 'text-amber-700'}`}>
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </p>
+      {event.comment && (
+        <span className="absolute top-1 right-1" title={event.comment}>
+          <svg
+            className={`w-3 h-3 ${colorConfig.text === 'text-white' ? 'text-white/70' : 'text-amber-700/70'}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </span>
+      )}
     </button>
   );
 }
